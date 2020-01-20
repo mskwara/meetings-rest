@@ -17,12 +17,32 @@ $app->get(
 $app->get(
     '/api/participants',
     function (Request $request, Response $response, array $args) {
-        $participants = [
-           ['id' => 1, 'firstname' => 'John', 'lastname' => 'Doe'],
-           ['id' => 2, 'firstname' => 'Kate', 'lastname' => 'Pig'],
-           ['id' => 3, 'firstname' => 'Chris', 'lastname' => 'Lua'],
-        ];
-        return $response->withJson($participants);
+        // $participants = [
+        //    ['id' => 1, 'firstname' => 'John', 'lastname' => 'Doe'],
+        //    ['id' => 2, 'firstname' => 'Kate', 'lastname' => 'Pig'],
+        //    ['id' => 3, 'firstname' => 'Chris', 'lastname' => 'Lua'],
+        // ];
+
+        class MyDB extends SQLite3 {
+            function __construct() {
+               $this->open('../participants.db');
+            }
+         }
+         $db = new MyDB();
+         if(!$db) {
+            echo $db->lastErrorMsg();
+            exit();
+         }
+
+        $sql = "SELECT id, name, lastname FROM participant";
+        $ret = $db->query($sql);
+        while($row = $ret->fetchArray(SQLITE3_ASSOC) ) {
+            echo "id = ". $row['id'] . ", ";
+            echo "name = ". $row['name'] . ", ";
+            echo "lastname = ". $row['lastname'] ."<br>";
+        }
+        $db->close();
+        return $response->withJson($sql);
     }
 );
 
