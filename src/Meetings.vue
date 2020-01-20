@@ -33,13 +33,19 @@
     components: {ParticipantsList, NewParticipantForm},
     data() {
       return {
-        people: []
+        people: [],
+        osoba: {},
       };
     },
     methods: {
       addNewParticipant(participant) {
         this.people.push(participant);
       }
+    },
+    mounted() {
+      this.$http.get('participants').then(response => {
+        this.people = response.body;
+      });
     }
   };
 </script>

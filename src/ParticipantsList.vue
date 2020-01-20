@@ -1,7 +1,7 @@
 <template>
   <div>
     <ol class="list-group">
-      <li :key="person" v-for="person in list" class="list-group-item">
+      <li :key="person.id" v-for="person in list" class="list-group-item">
         {{ person.firstname }}
         {{ person.lastname }}
       </li>
@@ -11,6 +11,6 @@
 
 <script>
   export default {
-    props: ['list']
+    props: ['list'],
   };
 </script>
