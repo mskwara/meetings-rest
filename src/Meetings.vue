@@ -9,7 +9,7 @@
       <div>
         <div v-if="people.length > 0">
           <h2>The people already signed in:</h2>
-          <participants-list :list="people"></participants-list>
+          <participants-list :list="people" @deleted="deleteParticipant($event)"></participants-list>
         </div>
         <em v-else>Sorry, nobody is here :-(</em>
       </div>
@@ -39,7 +39,12 @@
     },
     methods: {
       addNewParticipant(participant) {
-        this.people.push(participant);
+        this.$http.post('add', participant);
+
+      },
+      deleteParticipant(participant) {
+        this.$http.delete('delete/'+participant.id);
+
       }
     },
     mounted() {
