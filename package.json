@@ -6,7 +6,7 @@
     "api": "cd public && php -S localhost:8000 api.php",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "postinstall": "npm run build"
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "bootstrap": "^4.1.3",

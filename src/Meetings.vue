@@ -40,17 +40,21 @@
     methods: {
       addNewParticipant(participant) {
         this.$http.post('add', participant);
-
+        this.getListData();
       },
       deleteParticipant(participant) {
         this.$http.delete('delete/'+participant.id);
-
-      }
+        this.getListData();
+      },
+      getListData(){
+        this.$http.get('participants').then(response => {
+          this.people = response.body;
+        });
+      },
     },
     mounted() {
-      this.$http.get('participants').then(response => {
-        this.people = response.body;
-      });
+      this.getListData();
+      var myInterval = setInterval(this.getListData, 1000);
     }
   };
 </script>
