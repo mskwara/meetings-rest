@@ -17,7 +17,6 @@ $app->get(
 $app->get(
     '/api/participants',
     function (Request $request, Response $response, array $args) {
-
         class MyDB extends SQLite3 {
             function __construct() {
                $this->open('../participants.db');
